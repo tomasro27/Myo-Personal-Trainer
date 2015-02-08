@@ -154,6 +154,11 @@ public class MyoFragment extends Fragment {
                 case ExerciseVariables.BACK_FLYES:
                     if (old_yaw == 0) {
                         old_yaw = yaw;
+                        bottom = true;
+                    }
+
+                    if (Math.abs(yaw - old_yaw) <= 10) {
+                        bottom = true;
                     }
 
                     if (old_yaw < -100 && yaw > 100) {
@@ -161,17 +166,20 @@ public class MyoFragment extends Fragment {
                     }
 
                     if (yaw_overflow) {
-                        if (Math.abs() >= 40) {
-                            
+                        if (Math.abs(yaw - old_yaw) >= 320) {
+                            top = true;
                         }
                     } else {
                         if (Math.abs(yaw - old_yaw) >= 40) {
-                            updateCount();
                             top = true;
                         }
                     }
 
-
+                    if (top && bottom) {
+                        updateCount();
+                        top = false;
+                        bottom = false;
+                    }
 
             }
         }
