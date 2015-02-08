@@ -45,7 +45,7 @@ public class WorkoutsFragment extends Fragment {
 
             mAdapter.addSectionHeaderItem("Beginner Level");
 
-            mAdapter.addItem("Full Body Variation 1", 0);
+            mAdapter.addItem("Full Body Variation 1", R.drawable.beginner);
             ArrayList workout = new ArrayList();
             workout.add("Dumbbell Biceps Curl");
             workout.add("Dumbell Raise (Front)");
@@ -54,13 +54,13 @@ public class WorkoutsFragment extends Fragment {
            ((MyApp) getActivity().getApplicationContext()).workoutsMap.put("Full Body Variation 1", workout);
 
 
-            mAdapter.addItem("Full Body Variation 2", 0);
+            mAdapter.addItem("Full Body Variation 2", R.drawable.beginner);
             mAdapter.addSectionHeaderItem("Intermidiate Level");
             mAdapter.addItem("Back and Biceps", R.drawable.ic_myo);
-            mAdapter.addItem("Chest and Triceps", 0);
+            mAdapter.addItem("Chest and Triceps", R.drawable.ic_myo);
             mAdapter.addSectionHeaderItem("Advanced Level");
-            mAdapter.addItem("Shorcut to Size", R.drawable.ic_launcher);
-            mAdapter.addItem("Shorcut to Shredd", R.drawable.ic_myobandwhite);
+            mAdapter.addItem("Shorcut to Size", R.drawable.arnold);
+            mAdapter.addItem("Shorcut to Shredd", R.drawable.arnold);
 
 //            for (int i = 1; i < 30; i++) {
 //                mAdapter.addItem("Row Item #" + i);
