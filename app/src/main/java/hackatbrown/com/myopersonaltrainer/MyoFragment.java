@@ -104,8 +104,8 @@ public class MyoFragment extends Fragment {
             float yaw = (float) Math.toDegrees(Quaternion.yaw(rotation));
 
             if (delay >= 3) {
-//                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
-                Log.i("orientation", "yaw :" + yaw + " fist: " + fist);
+                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
+//                Log.i("orientation", "yaw :" + yaw + " fist: " + fist);
                 delay = 0;
             } else {
                 delay++;
@@ -127,6 +127,7 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
                 case ExerciseVariables.DELTOID_RAISE:
                     if (pitch <= -65) {
                         bottom = true;
@@ -139,6 +140,7 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
                 case ExerciseVariables.TRICEPS_KICKBACK:
                     if (pitch <= -75) {
                         bottom = true;
@@ -151,26 +153,26 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
                 case ExerciseVariables.BACK_FLYES:
                     if (old_yaw == 0) {
                         old_yaw = yaw;
                         bottom = true;
                     }
-
-                    if (Math.abs(yaw - old_yaw) <= 10) {
+                    else if (Math.abs(yaw - old_yaw) <= 10) {
                         bottom = true;
                     }
 
-                    if (old_yaw < -100 && yaw > 100) {
+                    if ((old_yaw < -100 && yaw > 100) || (old_yaw > 100 && yaw < -100)) {
                         yaw_overflow = true;
                     }
 
                     if (yaw_overflow) {
-                        if (Math.abs(yaw - old_yaw) >= 320) {
+                        if (Math.abs(yaw - old_yaw) >= 320 && bottom) {
                             top = true;
                         }
                     } else {
-                        if (Math.abs(yaw - old_yaw) >= 40) {
+                        if (Math.abs(yaw - old_yaw) >= 40 && bottom) {
                             top = true;
                         }
                     }
@@ -180,6 +182,7 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
 
             }
         }
@@ -329,6 +332,7 @@ public class MyoFragment extends Fragment {
         top = false;
         _exerciseCount = -1;
         updateCount();
+        old_yaw = 0;
         _exercise = ExerciseVariables.BACK_FLYES;
         _exerciseTextView.setText("Exercise: Back Flyes");
     }
