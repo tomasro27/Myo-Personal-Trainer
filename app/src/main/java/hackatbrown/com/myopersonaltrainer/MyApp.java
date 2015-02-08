@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ServiceConnection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Sam on 2/8/2015.
@@ -28,5 +29,7 @@ public class MyApp extends Application {
     public void setSongList(ArrayList<Song> s){
         songList = s;
     }
+
+    public HashMap<String, ArrayList<String>> workoutsMap = new HashMap<>();
 
 }

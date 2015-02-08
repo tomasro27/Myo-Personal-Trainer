@@ -49,6 +49,7 @@ public class SlidingTabsFragment extends Fragment {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mViewPager.setAdapter(new TabsPagerAdapter(getActivity().getSupportFragmentManager()));
+        mViewPager.setOffscreenPageLimit(0);
 
 
 
