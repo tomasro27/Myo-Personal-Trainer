@@ -7,17 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link WorkoutsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link WorkoutsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WorkoutsFragment extends Fragment {
+
+    private CustomAdapter mAdapter;
+    private ListView workoutsList;
 
     public WorkoutsFragment() {
         // Required empty public constructor
@@ -33,7 +29,30 @@ public class WorkoutsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workouts, container, false);
+        View v =  inflater.inflate(R.layout.fragment_workouts, container, false);
+
+        workoutsList = (ListView) v.findViewById(R.id.workoutsList);
+
+
+            mAdapter = new CustomAdapter(getActivity().getApplicationContext());
+
+
+
+            mAdapter.addSectionHeaderItem("Beginner Level");
+            mAdapter.addItem("Full Body Variation 1", R.drawable.ic_myo);
+
+//            for (int i = 1; i < 30; i++) {
+//                mAdapter.addItem("Row Item #" + i);
+//                if (i % 4 == 0) {
+//                    mAdapter.addSectionHeaderItem("Section #" + i);
+//                }
+//            }
+
+            workoutsList.setAdapter(mAdapter);
+
+
+
+        return v;
     }
 
 
