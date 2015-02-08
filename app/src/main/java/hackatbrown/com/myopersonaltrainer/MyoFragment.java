@@ -95,8 +95,9 @@ public class MyoFragment extends Fragment {
             float pitch = (float) Math.toDegrees(Quaternion.pitch(rotation));
             float yaw = (float) Math.toDegrees(Quaternion.yaw(rotation));
 
-            if (delay >= 2) {
-                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
+            if (delay >= 3) {
+//                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
+                Log.i("orientation", "yaw :" + pitch + " yaw: " + fist);
                 delay = 0;
             } else {
                 delay++;
@@ -114,7 +115,6 @@ public class MyoFragment extends Fragment {
                     }
 
                     if (pitch <= -40 && top && bottom) {
-                        _exerciseCount++;
                         updateCount();
                         top = false;
                         bottom = false;
@@ -127,25 +127,25 @@ public class MyoFragment extends Fragment {
                     }
 
                     if (pitch >= -5 && top && bottom) {
-                        _exerciseCount++;
+                        updateCount();
+                        top = false;
+                        bottom = false;
+                    }
+                case ExerciseVariables.TRICEPS_KICKBACK:
+                    if (pitch <= -75) {
+                        bottom = true;
+                    } else if (pitch >= -20) {
+                        top = true;
+                    }
+
+                    if (pitch >= -20 && top && bottom) {
                         updateCount();
                         top = false;
                         bottom = false;
                     }
             }
         }
-
-//        public void onAccelerometerData (Myo myo, long timestamp, Vector3 accel) {
-//            double x = accel.x();
-//            double y = accel.y();
-//            double z = accel.z();
-//
-//            Log.i("accel", "x: "+ x + " y: " + y + " z: " + z);
-//        }
-
     };
-
-
 
     public MyoFragment() {
         // Required empty public constructor
@@ -197,12 +197,21 @@ public class MyoFragment extends Fragment {
             }
         });
 
-        // bench press button
+        // deltoid kickback button
         connectButton = (Button) v.findViewById(R.id.deltoid_raise_button);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doDeltoidRaise();
+            }
+        });
+
+        // triceps kickback button
+        connectButton = (Button) v.findViewById(R.id.triceps_kickback_button);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doTricepsKickback();
             }
         });
 
@@ -217,6 +226,7 @@ public class MyoFragment extends Fragment {
     }
 
     public void updateCount() {
+        _exerciseCount++;
         _myoTextView = (TextView)  _activity.findViewById(R.id.myoTextView);
         _myoTextView.setText("Count: " + _exerciseCount);
     }
@@ -224,7 +234,8 @@ public class MyoFragment extends Fragment {
     public void doBicepCurls() {
         bottom = false;
         top = false;
-        _exerciseCount = 0;
+        _exerciseCount = -1;
+        updateCount();
         _exercise = ExerciseVariables.BICEP_CURLS;
         _exerciseTextView.setText("Exercise: Bicep Curls");
     }
@@ -232,7 +243,8 @@ public class MyoFragment extends Fragment {
     public void doDeltoidRaise() {
         bottom = false;
         top = false;
-        _exerciseCount = 0;
+        _exerciseCount = -1;
+        updateCount();
         _exercise = ExerciseVariables.DELTOID_RAISE;
         _exerciseTextView.setText("Exercise: Deltoid Raise");
     }
@@ -240,11 +252,9 @@ public class MyoFragment extends Fragment {
     public void doTricepsKickback() {
         bottom = false;
         top = false;
-        _exerciseCount = 0;
+        _exerciseCount = -1;
+        updateCount();
         _exercise = ExerciseVariables.TRICEPS_KICKBACK;
         _exerciseTextView.setText("Exercise: Triceps Kickback");
     }
-
-    // set other options for other exercises
-
 }

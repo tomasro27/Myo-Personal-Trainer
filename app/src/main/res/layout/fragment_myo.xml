@@ -40,4 +40,13 @@
         android:text="Deltoid Raise"
         android:layout_below="@+id/bicep_curls_button"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/triceps_kickback_button"
+        android:layout_alignParentRight="true"
+        android:text="Triceps Kickback"
+        android:layout_below="@+id/deltoid_raise_button"/>
+
+
 </RelativeLayout>
