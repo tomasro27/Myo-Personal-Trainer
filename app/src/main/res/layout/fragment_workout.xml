@@ -3,11 +3,31 @@
     android:layout_height="match_parent"
     tools:context="hackatbrown.com.myopersonaltrainer.WorkoutFragment">
 
+    <include layout="@layout/toolbar_actionbar"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/workoutTitle"
+        />
 
     <ListView
+        android:layout_below="@+id/workoutTitle"
         android:id="@+id/workoutList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/startWorkoutButton"></ListView>
+
+    <Button
+        android:id="@+id/startWorkoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Start Workout"
+        android:textColor="#ffffff"
+        android:background="#ffb71c1c"
+        android:textSize="26dp"
+        android:fontFamily="Roboto"
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>

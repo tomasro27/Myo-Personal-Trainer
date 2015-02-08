@@ -7,4 +7,5 @@ public class ExerciseVariables {
     public static final int BICEP_CURLS = 0;
     public static final int DELTOID_RAISE = 1;
     public static final int TRICEPS_KICKBACK = 2;
+    public static final int BACK_FLYES = 3;
 }

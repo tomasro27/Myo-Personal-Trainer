@@ -37,6 +37,9 @@ public class MyoFragment extends Fragment {
     MusicService musicSrv;
     boolean musicBound = false;
 
+    float old_yaw = 0;
+    boolean yaw_overflow = false;
+
     int delay = 0;
     boolean bottom = false;
     boolean top = false;
@@ -101,8 +104,8 @@ public class MyoFragment extends Fragment {
             float yaw = (float) Math.toDegrees(Quaternion.yaw(rotation));
 
             if (delay >= 3) {
-//                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
-                Log.i("orientation", "yaw :" + pitch + " yaw: " + fist);
+                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
+//                Log.i("orientation", "yaw :" + yaw + " fist: " + fist);
                 delay = 0;
             } else {
                 delay++;
@@ -124,6 +127,7 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
                 case ExerciseVariables.DELTOID_RAISE:
                     if (pitch <= -65) {
                         bottom = true;
@@ -136,6 +140,7 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
                 case ExerciseVariables.TRICEPS_KICKBACK:
                     if (pitch <= -75) {
                         bottom = true;
@@ -148,6 +153,37 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                    break;
+                case ExerciseVariables.BACK_FLYES:
+                    if (old_yaw == 0) {
+                        old_yaw = yaw;
+                        bottom = true;
+                    }
+                    else if (Math.abs(yaw - old_yaw) <= 10) {
+                        bottom = true;
+                    }
+
+                    if ((old_yaw < -100 && yaw > 100) || (old_yaw > 100 && yaw < -100)) {
+                        yaw_overflow = true;
+                    }
+
+                    if (yaw_overflow) {
+                        if (Math.abs(yaw - old_yaw) >= 320 && bottom) {
+                            top = true;
+                        }
+                    } else {
+                        if (Math.abs(yaw - old_yaw) >= 40 && bottom) {
+                            top = true;
+                        }
+                    }
+
+                    if (top && bottom) {
+                        updateCount();
+                        top = false;
+                        bottom = false;
+                    }
+                    break;
+
             }
         }
     };
@@ -230,17 +266,25 @@ public class MyoFragment extends Fragment {
             }
         });
 
+        connectButton = (Button) v.findViewById(R.id.back_flyes_button);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doBackFlyes();
+            }
+        });
+
+
         return v;
     }
 
     public void playCue(){
-        Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
-        ((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
-        ((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
+        //Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
+        //((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
+        //((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
         //Log.i("sizecue", s.getCuePos() + "");
-        //MusicPlayer mp=new MusicPlayer(this.getActivity().getApplicationContext());
-        //mp.playSong("@sound/cups");
-
+        MusicPlayer mp=new MusicPlayer(this.getActivity().getApplicationContext());
+        mp.playSong(R.raw.cups);
     }
 
     public void connect(View view){
@@ -281,5 +325,15 @@ public class MyoFragment extends Fragment {
         updateCount();
         _exercise = ExerciseVariables.TRICEPS_KICKBACK;
         _exerciseTextView.setText("Exercise: Triceps Kickback");
+    }
+
+    public void doBackFlyes() {
+        bottom = false;
+        top = false;
+        _exerciseCount = -1;
+        updateCount();
+        old_yaw = 0;
+        _exercise = ExerciseVariables.BACK_FLYES;
+        _exerciseTextView.setText("Exercise: Back Flyes");
     }
 }
