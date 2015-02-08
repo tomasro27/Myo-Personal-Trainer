@@ -16,30 +16,32 @@ import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
 
-
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.DeviceListener;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
 import com.thalmic.myo.Quaternion;
+
 import com.thalmic.myo.scanner.ScanActivity;
 
 public class MyoFragment extends Fragment {
 
     TextView _myoTextView;
+    TextView _exerciseTextView;
+
     Activity _activity;
     Button connectButton;
-    int _curl_count = 0;
+    int _exerciseCount = 0;
     int _exercise = -1;
     MusicService musicSrv;
     boolean musicBound = false;
 
+    int delay = 0;
+    boolean bottom = false;
+    boolean top = false;
 
     private DeviceListener mListener = new AbstractDeviceListener() {
-//        int _curl_count = 0;
-        boolean bottom = false;
-        boolean top = false;
         boolean fist = false;
         long oldtime = 0;
         Myo _myo;
@@ -61,15 +63,14 @@ public class MyoFragment extends Fragment {
         @Override
         public void onPose(Myo myo, long timestamp, Pose pose) {
 
-            if (timestamp - oldtime < 1000) {
-                return;
-            }
-            Log.i("pose", "Pose: " + pose);
+//            if (timestamp - oldtime < 1000) {
+//                return;
+//            }
+//            Log.i("pose", "Pose: " + pose);
 
             oldtime = timestamp;
             switch (pose) {
                 case UNKNOWN:
-//                    _myo.notifyUserAction();
                     fist = false;
                     break;
                 case FIST:
@@ -99,32 +100,57 @@ public class MyoFragment extends Fragment {
             float pitch = (float) Math.toDegrees(Quaternion.pitch(rotation));
             float yaw = (float) Math.toDegrees(Quaternion.yaw(rotation));
 
-            Log.i("orientation", "pitch: " + pitch + " fist: " + fist + " count: " + _curl_count);
+            if (delay >= 3) {
+//                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
+                Log.i("orientation", "yaw :" + pitch + " yaw: " + fist);
+                delay = 0;
+            } else {
+                delay++;
+            }
 
             if (!fist) {
                 return;
             }
             switch(_exercise) {
                 case ExerciseVariables.BICEP_CURLS:
-                    if (pitch >= 45) {
+                    if (pitch >= 40) {
                         bottom = true;
-                    } else if (pitch <= -45) {
+                    } else if (pitch <= -40) {
                         top = true;
                     }
 
-                    if (pitch <= -45 & top & bottom) {
-                        _curl_count++;
+                    if (pitch <= -40 && top && bottom) {
                         updateCount();
                         top = false;
                         bottom = false;
                     }
-                case ExerciseVariables.BENCH_PRESS:
+                case ExerciseVariables.DELTOID_RAISE:
+                    if (pitch <= -65) {
+                        bottom = true;
+                    } else if (pitch >= -5) {
+                        top = true;
+                    }
 
+                    if (pitch >= -5 && top && bottom) {
+                        updateCount();
+                        top = false;
+                        bottom = false;
+                    }
+                case ExerciseVariables.TRICEPS_KICKBACK:
+                    if (pitch <= -75) {
+                        bottom = true;
+                    } else if (pitch >= -20) {
+                        top = true;
+                    }
+
+                    if (pitch >= -20 && top && bottom) {
+                        updateCount();
+                        top = false;
+                        bottom = false;
+                    }
             }
         }
     };
-
-
 
     public MyoFragment() {
         // Required empty public constructor
@@ -153,7 +179,10 @@ public class MyoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_myo, container, false);
 
         _myoTextView = (TextView) v.findViewById(R.id.myoTextView);
-        _myoTextView.setText("Count: " + _curl_count);
+        _myoTextView.setText("Count: " + _exerciseCount);
+
+        _exerciseTextView = (TextView) v.findViewById(R.id.exerciseTextView);
+        _exerciseTextView.setText("Exercise: None");
 
         // myo connect button
         connectButton = (Button) v.findViewById(R.id.button_connect);
@@ -173,14 +202,15 @@ public class MyoFragment extends Fragment {
             }
         });
 
-        // bench press button
-        connectButton = (Button) v.findViewById(R.id.bench_press_button);
+        // deltoid kickback button
+        connectButton = (Button) v.findViewById(R.id.deltoid_raise_button);
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doBenchPress();
+                doDeltoidRaise();
             }
         });
+
 
         connectButton = (Button) v.findViewById(R.id.play_cue_button);
         connectButton.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +220,15 @@ public class MyoFragment extends Fragment {
             }
         });
 
+
+        // triceps kickback button
+        connectButton = (Button) v.findViewById(R.id.triceps_kickback_button);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doTricepsKickback();
+            }
+        });
 
         return v;
     }
@@ -212,37 +251,35 @@ public class MyoFragment extends Fragment {
     }
 
     public void updateCount() {
+        _exerciseCount++;
         _myoTextView = (TextView)  _activity.findViewById(R.id.myoTextView);
-        _myoTextView.setText("Count: " + _curl_count);
+        _myoTextView.setText("Count: " + _exerciseCount);
     }
 
     public void doBicepCurls() {
+        bottom = false;
+        top = false;
+        _exerciseCount = -1;
+        updateCount();
         _exercise = ExerciseVariables.BICEP_CURLS;
+        _exerciseTextView.setText("Exercise: Bicep Curls");
     }
 
-    public void doBenchPress() {
-        _exercise = ExerciseVariables.BENCH_PRESS;
+    public void doDeltoidRaise() {
+        bottom = false;
+        top = false;
+        _exerciseCount = -1;
+        updateCount();
+        _exercise = ExerciseVariables.DELTOID_RAISE;
+        _exerciseTextView.setText("Exercise: Deltoid Raise");
     }
 
-    // set other options for other exercises
-
-    private ServiceConnection musicConnection = new ServiceConnection(){
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MusicService.MusicBinder binder = (MusicService.MusicBinder)service;
-            //get service
-            Log.i("musicbound",musicBound + "");
-            musicSrv = binder.getService();
-            //pass list
-            musicSrv.setList(((MyApp) getActivity().getApplicationContext()).getSongList());
-            musicBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            musicBound = false;
-        }
-    };
-
+    public void doTricepsKickback() {
+        bottom = false;
+        top = false;
+        _exerciseCount = -1;
+        updateCount();
+        _exercise = ExerciseVariables.TRICEPS_KICKBACK;
+        _exerciseTextView.setText("Exercise: Triceps Kickback");
+    }
 }

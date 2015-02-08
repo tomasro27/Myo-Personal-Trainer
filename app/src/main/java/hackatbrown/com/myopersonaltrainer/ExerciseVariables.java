@@ -5,5 +5,6 @@ package hackatbrown.com.myopersonaltrainer;
  */
 public class ExerciseVariables {
     public static final int BICEP_CURLS = 0;
-    public static final int BENCH_PRESS = 1;
+    public static final int DELTOID_RAISE = 1;
+    public static final int TRICEPS_KICKBACK = 2;
 }
