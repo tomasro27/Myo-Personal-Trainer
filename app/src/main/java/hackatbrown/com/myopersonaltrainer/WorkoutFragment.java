@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ public class WorkoutFragment extends Fragment {
     private CustomAdapter mAdapter;
     private ArrayList<String> exerciseNames;
     private Toolbar toolbar;
+    private Button startWorkout;
 
     private TextView workoutTitle;
 
@@ -72,6 +76,27 @@ public class WorkoutFragment extends Fragment {
 
         workoutList.setAdapter(mAdapter);
 
+        startWorkout = (Button) v.findViewById(R.id.startWorkoutButton);
+
+        startWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ActiveWorkoutFragment();
+
+                Bundle args = new Bundle();
+
+                args.putString("workoutName", "Full Body Variation 1");
+                fragment.setArguments(args);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.content_fragment , fragment, "workout");
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
+            }
+        });
 
 
 

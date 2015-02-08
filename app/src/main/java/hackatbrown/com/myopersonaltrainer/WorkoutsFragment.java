@@ -59,7 +59,7 @@ public class WorkoutsFragment extends Fragment {
             mAdapter.addItem("Back and Biceps", R.drawable.ic_myo);
             mAdapter.addItem("Chest and Triceps", 0);
             mAdapter.addSectionHeaderItem("Advanced Level");
-            mAdapter.addItem("Shorcut to Size", R.drawable.ic_myobandwhite);
+            mAdapter.addItem("Shorcut to Size", R.drawable.ic_launcher);
 
 //            for (int i = 1; i < 30; i++) {
 //                mAdapter.addItem("Row Item #" + i);
@@ -84,8 +84,9 @@ public class WorkoutsFragment extends Fragment {
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
+
                     fragmentTransaction.replace(R.id.content_fragment , fragment, "workout");
+                    fragmentTransaction.addToBackStack(null);
 
                     fragmentTransaction.commit();
                 }
