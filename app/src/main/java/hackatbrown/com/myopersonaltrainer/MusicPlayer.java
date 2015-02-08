@@ -93,12 +93,12 @@ public class MusicPlayer implements
         player.prepareAsync();
     }
 
-    public void playSong(String s){
+    public void playSong(int i){
         //play a song
         //get id
         player.reset();
         //set uri
-        Uri trackUri = Uri.fromFile(new File(s));
+        Uri trackUri = Uri.parse("android.resource://" + c.getPackageName() + "/" + i);
 
         try{
             player.setDataSource(c, trackUri);

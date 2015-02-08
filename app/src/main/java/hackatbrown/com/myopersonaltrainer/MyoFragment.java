@@ -276,13 +276,12 @@ public class MyoFragment extends Fragment {
     }
 
     public void playCue(){
-        Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
-        ((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
-        ((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
+        //Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
+        //((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
+        //((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
         //Log.i("sizecue", s.getCuePos() + "");
-        //MusicPlayer mp=new MusicPlayer(this.getActivity().getApplicationContext());
-        //mp.playSong("@sound/cups");
-
+        MusicPlayer mp=new MusicPlayer(this.getActivity().getApplicationContext());
+        mp.playSong(R.raw.cups);
     }
 
     public void connect(View view){
