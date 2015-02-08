@@ -81,10 +81,10 @@ class CustomAdapter extends BaseAdapter {
 
             switch (rowType) {
                 case TYPE_ITEM:
-                    /*convertView = mInflater.inflate(R.layout.workout_row_layout, null);
+                    convertView = mInflater.inflate(R.layout.workout_row_layout, null);
                     textView = (TextView) convertView.findViewById(R.id.workoutName);
 
-                    imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
+                    /*imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
 
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inJustDecodeBounds = true;
@@ -92,7 +92,7 @@ class CustomAdapter extends BaseAdapter {
                     int imageHeight = options.outHeight;
                     int imageWidth = options.outWidth;
 
-                    options.inSampleSize = Helper.calculateInSampleSize(options, 100, 100);
+                    options.inSampleSize = Helper.calculateInSampleSize(options, 10, 10);
 
                     // Decode bitmap with inSampleSize set
                     options.inJustDecodeBounds = false;
