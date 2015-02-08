@@ -17,7 +17,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     private final int[] ICONS = new int[] {
-            R.drawable.myo_tab,
+
             R.drawable.dumbbell_tab,
             R.drawable.music_tab
     };
@@ -46,9 +46,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch(position) {
-            case 0: return new MyoFragment();
-            case 1: return new WorkoutsFragment();
-            case 2: return new ProfileFragment();
+            //case 0: return new MyoFragment();
+            case 0: return new WorkoutsFragment();
+            case 1: return new ProfileFragment();
         }
 
         return null;

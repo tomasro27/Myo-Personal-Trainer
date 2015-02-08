@@ -1,5 +1,7 @@
 package hackatbrown.com.myopersonaltrainer;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Path;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.thalmic.myo.scanner.ScanActivity;
 
 import java.util.ArrayList;
 
@@ -54,7 +58,11 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.connect) {
+            Context context = this.getApplicationContext();
+            Intent intent = new Intent(context, ScanActivity.class);
+            startActivity(intent);
+            Log.d("test",  "done with scan activity");
             return true;
         }
 

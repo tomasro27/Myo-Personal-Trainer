@@ -60,6 +60,7 @@ public class WorkoutsFragment extends Fragment {
             mAdapter.addItem("Chest and Triceps", 0);
             mAdapter.addSectionHeaderItem("Advanced Level");
             mAdapter.addItem("Shorcut to Size", R.drawable.ic_launcher);
+            mAdapter.addItem("Shorcut to Shredd", R.drawable.ic_myobandwhite);
 
 //            for (int i = 1; i < 30; i++) {
 //                mAdapter.addItem("Row Item #" + i);
