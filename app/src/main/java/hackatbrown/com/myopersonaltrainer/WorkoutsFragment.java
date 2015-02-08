@@ -40,6 +40,12 @@ public class WorkoutsFragment extends Fragment {
 
             mAdapter.addSectionHeaderItem("Beginner Level");
             mAdapter.addItem("Full Body Variation 1", R.drawable.ic_myo);
+            mAdapter.addItem("Full Body Variation 2", R.drawable.ic_myobandwhite);
+            mAdapter.addSectionHeaderItem("Intermidiate Level");
+            mAdapter.addItem("Back and Biceps", R.drawable.ic_launcher);
+            mAdapter.addItem("Chest and Triceps", R.drawable.ic_myo);
+            mAdapter.addSectionHeaderItem("Advanced Level");
+            mAdapter.addItem("Shorcut to Size", R.drawable.ic_launcher);
 
 //            for (int i = 1; i < 30; i++) {
 //                mAdapter.addItem("Row Item #" + i);
