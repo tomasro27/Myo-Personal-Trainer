@@ -3,19 +3,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#FF330000"
+    android:background="@color/primary"
     tools:context=".ProfileFragment" >
 
     <ListView
         android:id="@+id/song_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:divider="#1d92cc"
+        android:dividerHeight="4px"
         android:layout_marginBottom="100dp">
     </ListView>
 
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/player"
+        android:divider="#1d92cc"
+        android:showDividers="middle"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true">
