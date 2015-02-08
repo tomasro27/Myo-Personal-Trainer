@@ -20,6 +20,21 @@ android {
 }
 
 dependencies {
+    repositories {
+        maven {
+            url './../libs/myo-android-sdk-0.10.0/myorepository'
+
+//            url 'file:///Users/MichaelChang/AndroidstudioProjects/myo-android-sdk-0.10.0/myorepository'
+//            url '../../libs/myo-android-sdk-0.10.0/myorepository'
+
+        }
+    }
+
+
+    compile('com.thalmic:myosdk:0.10.+@aar')
+
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+
 }

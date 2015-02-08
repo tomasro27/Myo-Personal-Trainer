@@ -4,7 +4,17 @@
     tools:context="hackatbrown.com.myopersonaltrainer.MyoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/myoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_connect"
+        android:layout_alignParentRight="true"
+        android:text="connect"/>
 
 </FrameLayout>
