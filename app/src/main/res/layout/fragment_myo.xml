@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hackatbrown.com.myopersonaltrainer.MyoFragment">
@@ -15,6 +15,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/button_connect"
         android:layout_alignParentRight="true"
-        android:text="connect"/>
+        android:text="Connect"/>
 
-</FrameLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bicep_curls_button"
+        android:layout_alignParentRight="true"
+        android:text="Bicep Curls"
+        android:layout_below="@+id/button_connect"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bench_press_button"
+        android:layout_alignParentRight="true"
+        android:text="Bench Press"
+        android:layout_below="@+id/bicep_curls_button"/>
+
+</RelativeLayout>
