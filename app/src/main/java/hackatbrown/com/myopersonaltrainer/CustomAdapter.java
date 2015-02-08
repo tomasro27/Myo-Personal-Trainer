@@ -84,27 +84,33 @@ class CustomAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.workout_row_layout, null);
                     textView = (TextView) convertView.findViewById(R.id.workoutName);
 
-                    /*imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
 
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inJustDecodeBounds = true;
-                    BitmapFactory.decodeResource(context.getResources(), drawables.get(position), options);
-                    int imageHeight = options.outHeight;
-                    int imageWidth = options.outWidth;
 
-                    options.inSampleSize = Helper.calculateInSampleSize(options, 10, 10);
+                    imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
+//
+//                    BitmapFactory.Options options = new BitmapFactory.Options();
+//                    options.inJustDecodeBounds = true;
+//                    BitmapFactory.decodeResource(context.getResources(), drawables.get(position), options);
+//                    int imageHeight = options.outHeight;
+//                    int imageWidth = options.outWidth;
+//
+//                    options.inSampleSize = Helper.calculateInSampleSize(options, 200, 200);
+//
+//                    // Decode bitmap with inSampleSize set
+//                    options.inJustDecodeBounds = false;
+//                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawables.get(position), options);
+//                    imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
 
-                    // Decode bitmap with inSampleSize set
-                    options.inJustDecodeBounds = false;
-                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawables.get(position), options);
 
-                    imageView.setImageBitmap(bitmap);
+                   //imageView.setImageResource(R.drawable.ic_launcher);
+                    //imageView.setImageBitmap(bitmap);
 
-                    if(bitmap!=null)
-                    {
-                        bitmap.recycle();
-                        bitmap=null;
-                    }*/
+                    //options.inSampleSize = Helper.calculateInSampleSize(options, 10, 10);
+
+
+                    imageView.setImageResource(drawables.get(position));
+
+
 
                     textView.setText(mData.get(position));
 
