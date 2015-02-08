@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Myo-Personal-Trainer.iml" filepath="$PROJECT_DIR$/Myo-Personal-Trainer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyoPersonalTrainer.iml" filepath="$PROJECT_DIR$/MyoPersonalTrainer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
