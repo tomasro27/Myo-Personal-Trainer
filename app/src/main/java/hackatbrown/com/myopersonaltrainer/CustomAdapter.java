@@ -81,7 +81,7 @@ class CustomAdapter extends BaseAdapter {
 
             switch (rowType) {
                 case TYPE_ITEM:
-                    convertView = mInflater.inflate(R.layout.workout_row_layout, null);
+                    /*convertView = mInflater.inflate(R.layout.workout_row_layout, null);
                     textView = (TextView) convertView.findViewById(R.id.workoutName);
 
                     imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
@@ -92,7 +92,7 @@ class CustomAdapter extends BaseAdapter {
                     int imageHeight = options.outHeight;
                     int imageWidth = options.outWidth;
 
-                    options.inSampleSize = Helper.calculateInSampleSize(options, 200, 200);
+                    options.inSampleSize = Helper.calculateInSampleSize(options, 100, 100);
 
                     // Decode bitmap with inSampleSize set
                     options.inJustDecodeBounds = false;
@@ -100,7 +100,15 @@ class CustomAdapter extends BaseAdapter {
 
                     imageView.setImageBitmap(bitmap);
 
+                    if(bitmap!=null)
+                    {
+                        bitmap.recycle();
+                        bitmap=null;
+                    }*/
+
                     textView.setText(mData.get(position));
+
+
 
 
                     break;
