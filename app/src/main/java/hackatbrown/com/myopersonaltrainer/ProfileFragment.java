@@ -28,7 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import hackatbrown.com.myopersonaltrainer.MusicService.MusicBinder;
 import android.widget.MediaController.MediaPlayerControl;
-
+import android.widget.Toast;
 
 
 public class ProfileFragment extends Fragment implements MediaPlayerControl {
@@ -105,6 +105,14 @@ public class ProfileFragment extends Fragment implements MediaPlayerControl {
             @Override
             public void onClick(View view) {
                 setCuePoint();
+                Toast.makeText(getActivity().getApplicationContext(), "Cue Point Set", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ((Button)v.findViewById(R.id.stop)).setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pause();
             }
         });
 

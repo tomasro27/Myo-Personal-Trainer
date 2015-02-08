@@ -25,6 +25,8 @@ import com.thalmic.myo.Quaternion;
 
 import com.thalmic.myo.scanner.ScanActivity;
 
+import java.util.ArrayList;
+
 public class MyoFragment extends Fragment {
 
     TextView _myoTextView;
@@ -54,14 +56,14 @@ public class MyoFragment extends Fragment {
 
 
 
-        // myo connect button
-        connectButton = (Button) v.findViewById(R.id.button_connect);
-        connectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connect(v);
-            }
-        });
+//        // myo connect button
+//        connectButton = (Button) v.findViewById(R.id.button_connect);
+//        connectButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                connect(v);
+//            }
+//        });
 
 
 
@@ -70,8 +72,8 @@ public class MyoFragment extends Fragment {
         return v;
     }
 
-    public void connect(View view){
 
-    }
+
+
 
 }

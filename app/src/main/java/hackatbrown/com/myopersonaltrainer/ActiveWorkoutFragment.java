@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,8 @@ import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
 import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.scanner.ScanActivity;
+
+import java.util.ArrayList;
 
 
 public class ActiveWorkoutFragment extends Fragment {
@@ -111,7 +115,7 @@ public class ActiveWorkoutFragment extends Fragment {
                 delay++;
             }
 
-            if (!fist && _exerciseCount <= 0) {
+            if (!fist && _exerciseCount < 0) {
                 return;
             }
             else if (fist && !setStarted)
@@ -296,7 +300,12 @@ public class ActiveWorkoutFragment extends Fragment {
 
 
     public void playCue(){
-        Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
+        ArrayList<Song> cued=((MyApp)getActivity().getApplicationContext()).getCued();
+        if(cued.size()==0){
+            return;
+        }
+        int rand=(int) (Math.random()*cued.size());
+        Song s=cued.get(rand);
         ((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
         ((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
         //Log.i("sizecue", s.getCuePos() + "");
@@ -348,6 +357,7 @@ public class ActiveWorkoutFragment extends Fragment {
         _exercise = ExerciseVariables.BICEP_CURLS;
         tittle.setText("Bicep Curls");
         playCue();
+
     }
 
     public void doDeltoidRaiseFront() {
@@ -358,6 +368,8 @@ public class ActiveWorkoutFragment extends Fragment {
         updateCount();
         _exercise = ExerciseVariables.DELTOID_RAISE_FRONT;
         tittle.setText("Dumbbell Raise (Front)");
+        playCue();
+
     }
 
     public void doDeltoidRaiseLateral() {
@@ -367,6 +379,8 @@ public class ActiveWorkoutFragment extends Fragment {
         updateCount();
         _exercise = ExerciseVariables.DELTOID_RAISE_LATERAL;
         tittle.setText("Dumbbell Raise (Lateral)");
+        playCue();
+
     }
 
     public void doTricepsKickback() {
@@ -376,6 +390,8 @@ public class ActiveWorkoutFragment extends Fragment {
         updateCount();
         _exercise = ExerciseVariables.TRICEPS_KICKBACK;
         tittle.setText("Exercise: Triceps Kickback");
+        playCue();
+
     }
 
     public void doBackFlyes() {
@@ -386,6 +402,8 @@ public class ActiveWorkoutFragment extends Fragment {
         old_yaw = 0;
         _exercise = ExerciseVariables.BACK_FLYES;
         tittle.setText("Exercise: Back Flyes");
+        playCue();
+
     }
 
     @Override

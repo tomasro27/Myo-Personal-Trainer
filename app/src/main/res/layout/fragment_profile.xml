@@ -3,27 +3,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#FF330000"
+    android:background="@color/primary"
     tools:context=".ProfileFragment" >
 
     <ListView
         android:id="@+id/song_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:divider="#1d92cc"
+        android:dividerHeight="4px"
         android:layout_marginBottom="100dp">
     </ListView>
 
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/player"
+        android:divider="#1d92cc"
+        android:showDividers="middle"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@color/blue"
         android:layout_alignParentBottom="true">
         <Button
+            android:paddingRight="1dp"
+            android:paddingLeft="1dp"
             android:id="@+id/cue"
             android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="100dp"
-            android:text="Set Cue Point"/>
+            android:background="@color/lightg"
+            android:text="Set Cue Point"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue" />
+        <Button
+            android:paddingLeft="1dp"
+            android:id="@+id/stop"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+            android:background="@color/lightg"
+            android:text="Stop"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
 
         </LinearLayout>
 
