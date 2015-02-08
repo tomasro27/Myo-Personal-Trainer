@@ -43,10 +43,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:id="@+id/play_cue_button"
+        android:layout_alignParentRight="true"
+        android:text="play rand"
+        android:layout_below="@+id/deltoid_raise_button"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/triceps_kickback_button"
         android:layout_alignParentRight="true"
         android:text="Triceps Kickback"
-        android:layout_below="@+id/deltoid_raise_button"/>
+        android:layout_below="@+id/play_cue_button"/>
+
 
     <Button
         android:layout_width="wrap_content"

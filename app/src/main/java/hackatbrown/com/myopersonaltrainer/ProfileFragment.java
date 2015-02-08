@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.os.IBinder;
 import android.content.ComponentName;
@@ -51,6 +53,8 @@ public class ProfileFragment extends Fragment implements MediaPlayerControl {
     }
 
     public void setCuePoint(){
+        Song s = musicSrv.getSong();
+        s.setCuePos(musicSrv.getPosn());
         ((MyApp)(this.getActivity().getApplicationContext())).getCued().add(musicSrv.getSong());
     }
 
@@ -97,6 +101,14 @@ public class ProfileFragment extends Fragment implements MediaPlayerControl {
             }
         });
 
+        ((Button)v.findViewById(R.id.cue)).setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCuePoint();
+            }
+        });
+
+        ((MyApp)getActivity().getApplicationContext()).setSongList(songList);
         setController();
         controller.setMediaPlayer(this);
         controller.setAnchorView(v.findViewById(R.id.player));
@@ -111,9 +123,10 @@ public class ProfileFragment extends Fragment implements MediaPlayerControl {
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicBinder binder = (MusicBinder)service;
             //get service
-            musicSrv = binder.getService();
+            ((MyApp)getActivity().getApplicationContext()).musicSrv = binder.getService();
             //pass list
-            musicSrv.setList(songList);
+            ((MyApp)getActivity().getApplicationContext()).musicSrv.setList(songList);
+            musicSrv=((MyApp)getActivity().getApplicationContext()).musicSrv;
             musicBound = true;
         }
 

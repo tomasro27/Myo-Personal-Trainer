@@ -1,7 +1,10 @@
 package hackatbrown.com.myopersonaltrainer;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +34,8 @@ public class MyoFragment extends Fragment {
     Button connectButton;
     int _exerciseCount = 0;
     int _exercise = -1;
+    MusicService musicSrv;
+    boolean musicBound = false;
 
     float old_yaw = 0;
     boolean yaw_overflow = false;
@@ -231,6 +236,16 @@ public class MyoFragment extends Fragment {
             }
         });
 
+
+        connectButton = (Button) v.findViewById(R.id.play_cue_button);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playCue();
+            }
+        });
+
+
         // triceps kickback button
         connectButton = (Button) v.findViewById(R.id.triceps_kickback_button);
         connectButton.setOnClickListener(new View.OnClickListener() {
@@ -250,6 +265,16 @@ public class MyoFragment extends Fragment {
 
 
         return v;
+    }
+
+    public void playCue(){
+        Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
+        ((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
+        ((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
+        //Log.i("sizecue", s.getCuePos() + "");
+        //MusicPlayer mp=new MusicPlayer(this.getActivity().getApplicationContext());
+        //mp.playSong("@sound/cups");
+
     }
 
     public void connect(View view){
