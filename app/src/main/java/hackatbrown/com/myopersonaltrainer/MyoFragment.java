@@ -32,6 +32,9 @@ public class MyoFragment extends Fragment {
     int _exerciseCount = 0;
     int _exercise = -1;
 
+    float old_yaw = 0;
+    boolean yaw_overflow = false;
+
     int delay = 0;
     boolean bottom = false;
     boolean top = false;
@@ -97,7 +100,7 @@ public class MyoFragment extends Fragment {
 
             if (delay >= 3) {
 //                Log.i("orientation", "pitch :" + pitch + " fist: " + fist);
-                Log.i("orientation", "yaw :" + pitch + " yaw: " + fist);
+                Log.i("orientation", "yaw :" + yaw + " fist: " + fist);
                 delay = 0;
             } else {
                 delay++;
@@ -143,6 +146,28 @@ public class MyoFragment extends Fragment {
                         top = false;
                         bottom = false;
                     }
+                case ExerciseVariables.BACK_FLYES:
+                    if (old_yaw == 0) {
+                        old_yaw = yaw;
+                    }
+
+                    if (old_yaw < -100 && yaw > 100) {
+                        yaw_overflow = true;
+                    }
+
+                    if (yaw_overflow) {
+                        if (Math.abs() >= 40) {
+                            
+                        }
+                    } else {
+                        if (Math.abs(yaw - old_yaw) >= 40) {
+                            updateCount();
+                            top = true;
+                        }
+                    }
+
+
+
             }
         }
     };
@@ -215,6 +240,15 @@ public class MyoFragment extends Fragment {
             }
         });
 
+        connectButton = (Button) v.findViewById(R.id.back_flyes_button);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doBackFlyes();
+            }
+        });
+
+
         return v;
     }
 
@@ -256,5 +290,14 @@ public class MyoFragment extends Fragment {
         updateCount();
         _exercise = ExerciseVariables.TRICEPS_KICKBACK;
         _exerciseTextView.setText("Exercise: Triceps Kickback");
+    }
+
+    public void doBackFlyes() {
+        bottom = false;
+        top = false;
+        _exerciseCount = -1;
+        updateCount();
+        _exercise = ExerciseVariables.BACK_FLYES;
+        _exerciseTextView.setText("Exercise: Back Flyes");
     }
 }

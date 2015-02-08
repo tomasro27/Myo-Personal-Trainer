@@ -48,5 +48,12 @@
         android:text="Triceps Kickback"
         android:layout_below="@+id/deltoid_raise_button"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back_flyes_button"
+        android:layout_alignParentRight="true"
+        android:text="Back Flyes"
+        android:layout_below="@+id/triceps_kickback_button"/>
 
 </RelativeLayout>
