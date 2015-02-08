@@ -23,10 +23,6 @@ dependencies {
     repositories {
         maven {
             url './../libs/myo-android-sdk-0.10.0/myorepository'
-
-//            url 'file:///Users/MichaelChang/AndroidstudioProjects/myo-android-sdk-0.10.0/myorepository'
-//            url '../../libs/myo-android-sdk-0.10.0/myorepository'
-
         }
     }
 

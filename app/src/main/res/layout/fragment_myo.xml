@@ -6,9 +6,16 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/myoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment" />
+
+    <TextView
+        android:id="@+id/exerciseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:layout_below="@+id/myoTextView"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -28,9 +35,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bench_press_button"
+        android:id="@+id/deltoid_raise_button"
         android:layout_alignParentRight="true"
-        android:text="Bench Press"
+        android:text="Deltoid Raise"
         android:layout_below="@+id/bicep_curls_button"/>
 
 </RelativeLayout>
