@@ -7,7 +7,7 @@ public class Song {
     private long id;
     private String title;
     private String artist;
-    private int cuepos=0;
+    private int cuepos=10;
 
     public Song(long songID, String songTitle, String songArtist) {
         id=songID;

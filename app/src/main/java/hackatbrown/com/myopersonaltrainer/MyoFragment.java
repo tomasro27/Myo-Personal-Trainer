@@ -1,7 +1,10 @@
 package hackatbrown.com.myopersonaltrainer;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +32,8 @@ public class MyoFragment extends Fragment {
     Button connectButton;
     int _curl_count = 0;
     int _exercise = -1;
+    MusicService musicSrv;
+    boolean musicBound = false;
 
 
     private DeviceListener mListener = new AbstractDeviceListener() {
@@ -177,8 +182,26 @@ public class MyoFragment extends Fragment {
             }
         });
 
+        connectButton = (Button) v.findViewById(R.id.play_cue_button);
+        connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playCue();
+            }
+        });
+
 
         return v;
+    }
+
+    public void playCue(){
+        Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
+        ((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
+        ((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
+        //Log.i("sizecue", s.getCuePos() + "");
+        //MusicPlayer mp=new MusicPlayer(this.getActivity().getApplicationContext());
+        //mp.playSong("@sound/cups");
+
     }
 
     public void connect(View view){
@@ -202,5 +225,24 @@ public class MyoFragment extends Fragment {
     }
 
     // set other options for other exercises
+
+    private ServiceConnection musicConnection = new ServiceConnection(){
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicService.MusicBinder binder = (MusicService.MusicBinder)service;
+            //get service
+            Log.i("musicbound",musicBound + "");
+            musicSrv = binder.getService();
+            //pass list
+            musicSrv.setList(((MyApp) getActivity().getApplicationContext()).getSongList());
+            musicBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicBound = false;
+        }
+    };
 
 }

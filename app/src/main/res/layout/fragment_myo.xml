@@ -33,4 +33,12 @@
         android:text="Bench Press"
         android:layout_below="@+id/bicep_curls_button"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/play_cue_button"
+        android:layout_alignParentRight="true"
+        android:text="play rand"
+        android:layout_below="@+id/bench_press_button"/>
+
 </RelativeLayout>

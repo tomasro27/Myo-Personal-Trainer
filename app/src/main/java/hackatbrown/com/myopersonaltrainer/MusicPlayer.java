@@ -1,8 +1,11 @@
 package hackatbrown.com.myopersonaltrainer;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+
+import java.io.File;
 import java.util.ArrayList;
 import android.content.ContentUris;
 import android.media.AudioManager;
@@ -13,7 +16,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 
-public class MusicService extends Service implements
+public class MusicPlayer implements
         MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
 
@@ -22,25 +25,20 @@ public class MusicService extends Service implements
     //song list
     private ArrayList<Song> songs;
     //current position
-    private int songPosn;
+    private int songPosn=0;
     private int songLoc=0;
+    private Context c;
 
-    private final IBinder musicBind = new MusicBinder();
 
-    public void onCreate(){
-        //create the service
-        //create the service
-        super.onCreate();
-        //initialize position
-        songPosn=0;
-        //create player
+    public MusicPlayer(Context con){
         player = new MediaPlayer();
+        c=con;
         initMusicPlayer();
     }
 
     public void initMusicPlayer(){
         //set player properties
-        player.setWakeMode(getApplicationContext(),
+        player.setWakeMode(c,
                 PowerManager.PARTIAL_WAKE_LOCK);
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
         player.setOnPreparedListener(this);
@@ -52,17 +50,6 @@ public class MusicService extends Service implements
         songs=theSongs;
     }
 
-    public class MusicBinder extends Binder {
-        MusicService getService() {
-            return MusicService.this;
-        }
-    }
-
-    @Override
-    public IBinder onBind(Intent arg0) {
-        // TODO Auto-generated method stub
-        return musicBind;
-    }
 
     public void playSong(){
         //play a song
@@ -78,7 +65,7 @@ public class MusicService extends Service implements
                 currSong);
 
         try{
-            player.setDataSource(getApplicationContext(), trackUri);
+            player.setDataSource(c, trackUri);
         }
         catch(Exception e){
             Log.e("MUSIC SERVICE", "Error setting data source", e);
@@ -98,7 +85,23 @@ public class MusicService extends Service implements
                 currSong);
 
         try{
-            player.setDataSource(getApplicationContext(), trackUri);
+            player.setDataSource(c, trackUri);
+        }
+        catch(Exception e){
+            Log.e("MUSIC SERVICE", "Error setting data source", e);
+        }
+        player.prepareAsync();
+    }
+
+    public void playSong(String s){
+        //play a song
+        //get id
+        player.reset();
+        //set uri
+        Uri trackUri = Uri.fromFile(new File(s));
+
+        try{
+            player.setDataSource(c, trackUri);
         }
         catch(Exception e){
             Log.e("MUSIC SERVICE", "Error setting data source", e);
@@ -112,14 +115,6 @@ public class MusicService extends Service implements
         return songs.get(songPosn);
 
     }
-
-    @Override
-    public boolean onUnbind(Intent intent){
-        player.stop();
-        player.release();
-        return false;
-    }
-
     @Override
     public void onCompletion(MediaPlayer mp) {
 
