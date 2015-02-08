@@ -25,6 +25,8 @@ import com.thalmic.myo.Quaternion;
 
 import com.thalmic.myo.scanner.ScanActivity;
 
+import java.util.ArrayList;
+
 public class MyoFragment extends Fragment {
 
     TextView _myoTextView;
@@ -279,7 +281,12 @@ public class MyoFragment extends Fragment {
     }
 
     public void playCue(){
-        Song s=((MyApp)getActivity().getApplicationContext()).getCued().get(0);
+        ArrayList<Song> cued=((MyApp)getActivity().getApplicationContext()).getCued();
+        if(cued.size()==0){
+            return;
+        }
+        int rand=(int)(Math.random()*cued.size());
+        Song s=cued.get(rand);
         ((MyApp)getActivity().getApplicationContext()).musicSrv.playSong(s);
         ((MyApp)getActivity().getApplicationContext()).musicSrv.seek(s.getCuePos());
         //Log.i("sizecue", s.getCuePos() + "");
@@ -291,7 +298,7 @@ public class MyoFragment extends Fragment {
         Context context = _activity.getApplicationContext();
         Intent intent = new Intent(context, ScanActivity.class);
         startActivity(intent);
-        Log.d("test",  "done with scan activity");
+        Log.d("test", "done with scan activity");
     }
 
     public void updateCount() {

@@ -242,7 +242,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
             tabView.setOnClickListener(tabClickListener);
 
             mTabStrip.addView(tabView);
-            mTabStrip.setBackgroundColor(getResources().getColor(R.color.primary));
+            mTabStrip.setBackgroundColor(getResources().getColor(R.color.blue));
         }
     }
 

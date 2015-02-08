@@ -108,6 +108,13 @@ public class ProfileFragment extends Fragment implements MediaPlayerControl {
             }
         });
 
+        ((Button)v.findViewById(R.id.stop)).setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pause();
+            }
+        });
+
         ((MyApp)getActivity().getApplicationContext()).setSongList(songList);
         setController();
         controller.setMediaPlayer(this);
