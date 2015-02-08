@@ -85,6 +85,7 @@ class CustomAdapter extends BaseAdapter {
                     textView = (TextView) convertView.findViewById(R.id.workoutName);
 
 
+
                     imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
 //
 //                    BitmapFactory.Options options = new BitmapFactory.Options();
@@ -98,9 +99,13 @@ class CustomAdapter extends BaseAdapter {
 //                    // Decode bitmap with inSampleSize set
 //                    options.inJustDecodeBounds = false;
 //                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawables.get(position), options);
+//                    imageView = (ImageView) convertView.findViewById(R.id.workoutThumbnail);
+
 
                    //imageView.setImageResource(R.drawable.ic_launcher);
                     //imageView.setImageBitmap(bitmap);
+
+                    //options.inSampleSize = Helper.calculateInSampleSize(options, 10, 10);
 
 
                     imageView.setImageResource(drawables.get(position));
